@@ -43,6 +43,10 @@ public class HealthManager : MonoBehaviour
         if(this.gameObject.name == "Planet")
         {
             UIManager.Instance.ShowHealth(health, maxhealth);
+            if(health<= 0)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 

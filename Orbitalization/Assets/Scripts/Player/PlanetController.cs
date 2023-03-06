@@ -27,11 +27,14 @@ public class PlanetController : MonoBehaviour
     void Update()
     {
 
-
-        horizontal = Input.GetAxisRaw(Horizontal);
-        vertical = Input.GetAxisRaw(Vertical);
-        PlanetMovement();
-        RotatePlayer();
+        if (!GameManager.Instance.isPaused)
+        {
+            horizontal = Input.GetAxisRaw(Horizontal);
+            vertical = Input.GetAxisRaw(Vertical);
+            PlanetMovement();
+            RotatePlayer();
+        }
+      
     }
 
     void PlanetMovement()

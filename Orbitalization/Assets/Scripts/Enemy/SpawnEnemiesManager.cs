@@ -24,11 +24,22 @@ public class SpawnEnemiesManager : MonoBehaviour
 
     void SpawnMeteor()
     {
-        Vector3 spawnPosition = Random.insideUnitCircle.normalized * spawnRadius;
+        Vector3 cameraPosition = Camera.main.transform.position;
+        cameraPosition.z = 0f;
+
+        
+        Vector3 spawnPosition = Random.onUnitSphere;
+
+       
+        Vector3 planeNormal = (spawnPosition - cameraPosition).normalized;
+        Vector3 planePoint = cameraPosition + planeNormal;
+        spawnPosition = Vector3.ProjectOnPlane(spawnPosition, planeNormal).normalized * spawnRadius + planePoint;
+
+      
         directionToPlanet = (planet.position - spawnPosition).normalized;
-        float angleToPlanet = Mathf.Atan2(directionToPlanet.y, directionToPlanet.x) * Mathf.Rad2Deg - 90f;
         Quaternion spawnRotation = Quaternion.LookRotation(Vector3.forward, directionToPlanet);
 
+        
         GameObject meteor = Instantiate(meteorPrefab, spawnPosition, spawnRotation);
         StatsCharacter enemyInfo = meteor.GetComponent<Enemy>().StatEnemy;
         meteor.GetComponent<Rigidbody2D>().velocity = directionToPlanet * enemyInfo.speed;

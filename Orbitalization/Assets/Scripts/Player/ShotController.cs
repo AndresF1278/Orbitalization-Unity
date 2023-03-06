@@ -22,8 +22,12 @@ public class ShotController : MonoBehaviour
     }
     private void Update()
     {
-        AimPosition();
-        shot();
+        if (!GameManager.Instance.isPaused)
+        {
+            AimPosition();
+            shot();
+        }
+       
         
     }
 
