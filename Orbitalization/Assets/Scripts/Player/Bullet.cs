@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
    [SerializeField] float _timer, _maxTime;
 
 
-    [SerializeField] float speed;
+    public float speed;
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Choca");
+           
             int xpEnemy = collision.collider.gameObject.GetComponent<Enemy>().StatEnemy.XP;
             ExpManager.Instance.SetXPValue(xpEnemy);
             gameObject.SetActive(false);

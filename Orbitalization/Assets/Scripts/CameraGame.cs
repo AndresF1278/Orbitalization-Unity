@@ -13,6 +13,6 @@ public class CameraGame : MonoBehaviour
     private void Update()
     {
         playerTarget = GameObject.Find("Planet").transform.position;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(playerTarget.x, playerTarget.y, transform.position.z), 5 * Time.deltaTime) ;
+        transform.position = Vector3.Lerp(transform.position, new Vector3(playerTarget.x, playerTarget.y, transform.position.z), 2 * Time.deltaTime) ;
     }
 }

@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager instance;
     [HideInInspector] public bool isPaused;
+    private OriginalStatsPlayer originalStats;
 
+   
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -23,46 +25,28 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Pause();
-    }
-
-    void Pause()
-    {
         if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "Main")
         {
-            if(Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-                isPaused = false;
-            }
-            else
-            {
-                Time.timeScale = 0;
-                isPaused = true;
-            }
+            TogglePause();
         }
     }
 
-    void Resume()
+    public void TogglePause()
     {
-
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
     }
 
     public void GameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        originalStats = FindObjectOfType<OriginalStatsPlayer>();
+        originalStats.ResetStats();
+       // SceneManager.LoadScene("GameOver");
     }
 
-    public void ModePlay()
+    public void PlayGame()
     {
+
         SceneManager.LoadScene("Main");
     }
-
-    void ModeGameOver()
-    {
-
-    }
-
-
-  
 }

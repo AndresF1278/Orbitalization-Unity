@@ -8,13 +8,13 @@ public class HealthManager : MonoBehaviour
     [SerializeField] float maxhealth;
     private Enemy stats;
     private PlanetController statsPlayer;
-    [SerializeField] float passiveHealing; 
+    [SerializeField] float passiveHealing;
 
     private void Start()
     {
         statsPlayer = GetComponent<PlanetController>();
         stats = GetComponent<Enemy>();
-         if(this.gameObject.name == "Planet")
+        if (this.gameObject.name == "Planet")
         {
             maxhealth = statsPlayer.statsPlayer.health;
         }
@@ -25,13 +25,11 @@ public class HealthManager : MonoBehaviour
         health = maxhealth;
 
         UIManager.Instance.ShowHealth(health, maxhealth);
-       
     }
-
 
     public void SetDamage(int damage)
     {
-        if(health > health-damage)
+        if (health > health - damage)
         {
             health -= damage;
         }
@@ -40,30 +38,36 @@ public class HealthManager : MonoBehaviour
             health = 0;
         }
 
-        if(this.gameObject.name == "Planet")
+        if (this.gameObject.name == "Planet")
         {
-            UIManager.Instance.ShowHealth(health, maxhealth);
-            if(health<= 0)
+            
+            if (health <= 0)
             {
-                GameManager.Instance.GameOver();
+                GameManager.instance.GameOver();
             }
         }
+        UIManager.Instance.ShowHealth(health, maxhealth);
     }
 
     void CureHealth(int healing)
     {
-        if(maxhealth <= health + healing)
+        if (maxhealth <= health + healing)
         {
-            health = maxhealth ;
+            health = maxhealth;
         }
         else
         {
             health += healing;
         }
+
+        
     }
 
     void MoreMaxHealth(int moreMaxHealth)
     {
         maxhealth += moreMaxHealth;
+        health += moreMaxHealth;
+
+       
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class SpaceGenerator : MonoBehaviour
 {
     public GameObject starPrefab;
+    public GameObject starBluePrefab;
     public int maxStars = 100;
     public float minDistance = 10f;
     public float maxDistance = 30f;
@@ -23,9 +24,22 @@ public class SpaceGenerator : MonoBehaviour
         // Crear estrellas iniciales
         for (int i = 0; i < maxStars; i++)
         {
-            GameObject star = Instantiate(starPrefab, transform);
-            star.SetActive(false);
-            stars.Add(star);
+            int StarColor = Random.Range(0, 2);
+            Debug.Log($"{StarColor}");
+            if (StarColor == 0)
+            {
+                GameObject star = Instantiate(starPrefab, transform);
+                star.SetActive(false);
+                stars.Add(star);
+            }
+            else
+            {
+                GameObject star = Instantiate(starBluePrefab, transform);
+                star.SetActive(false);
+                stars.Add(star);
+            }
+
+
         }
     }
 
@@ -36,7 +50,7 @@ public class SpaceGenerator : MonoBehaviour
         Vector3 direction = Random.onUnitSphere;
         float distance = Random.Range(minDistance, maxDistance);
         position += direction * distance;
-        return position;
+        return new Vector3(position.x, position.y, 0);
     }
 
     GameObject GetInactiveStar()

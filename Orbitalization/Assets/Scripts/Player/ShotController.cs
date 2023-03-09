@@ -7,13 +7,13 @@ using UnityEngine;
 public class ShotController : MonoBehaviour
 {
     private GameObject playerTransform;
-    [SerializeField] GameObject preFabBullet;
+    public GameObject preFabBullet;
     Vector2 facingDirecction;
-    [SerializeField] float cadence;
+    public  float cadence;
     bool Shoting;
 
     List<GameObject> bullets = new List<GameObject>();
-    [SerializeField] int maxBullets;
+    public int maxBullets;
     private void Start()
     {
         playerTransform = GameObject.Find("Planet");
@@ -22,7 +22,7 @@ public class ShotController : MonoBehaviour
     }
     private void Update()
     {
-        if (!GameManager.Instance.isPaused)
+        if (!GameManager.instance.isPaused)
         {
             AimPosition();
             shot();
@@ -59,7 +59,7 @@ public class ShotController : MonoBehaviour
     void AimPosition()
     {
         facingDirecction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerTransform.transform.position;
-        transform.position = playerTransform.transform.position + (Vector3)facingDirecction.normalized * 4;
+        transform.position = playerTransform.transform.position + (Vector3)facingDirecction.normalized * 10;
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 direction = mouseWorldPos - playerTransform.transform.position;

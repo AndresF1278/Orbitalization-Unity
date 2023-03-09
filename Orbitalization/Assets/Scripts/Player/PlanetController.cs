@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlanetController : MonoBehaviour
 {
-    [SerializeField] float speed;
+   
     const string Horizontal = "Horizontal";
     const string Vertical = "Vertical";
     private float horizontal;
@@ -21,13 +21,13 @@ public class PlanetController : MonoBehaviour
     private void Start()
     {
         Rb = GetComponent<Rigidbody2D>();
-        healthManager = GetComponent<HealthManager>();
+        healthManager = this.gameObject.GetComponent<HealthManager>();
     }
 
     void Update()
     {
 
-        if (!GameManager.Instance.isPaused)
+        if (!GameManager.instance.isPaused)
         {
             horizontal = Input.GetAxisRaw(Horizontal);
             vertical = Input.GetAxisRaw(Vertical);
@@ -41,7 +41,7 @@ public class PlanetController : MonoBehaviour
     {
        if(horizontal != 0 ||  vertical != 0)
         {
-            Rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+            Rb.velocity = new Vector2(horizontal * statsPlayer.speed, vertical * statsPlayer.speed);
         }
         else
         {
@@ -64,10 +64,24 @@ public class PlanetController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
             healthManager.SetDamage(collision.gameObject.GetComponent<Enemy>().StatEnemy.damage);
+            collision.gameObject.SetActive(false);
+        }
+   
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("StarXP"))
+        {
+            ExpManager.Instance.SetXPValue(1);
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.CompareTag("StarMoney"))
+        {
+         
+            collision.gameObject.SetActive(false);
         }
     }
 
-   
-    
 }

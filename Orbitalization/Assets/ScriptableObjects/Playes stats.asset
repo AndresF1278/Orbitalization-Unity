@@ -15,5 +15,5 @@ MonoBehaviour:
   nameEnemy: Planet
   damage: 1
   health: 10
-  speed: 5
+  speed: 10
   XP: 0
