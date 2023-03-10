@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider sliderExp;
     [SerializeField] private Slider sliderHealth;
     [SerializeField] private TMP_Text textLevel;
+    [SerializeField] private TMP_Text textKills;
+    
  
     [SerializeField] float sliderSpeed = 5f;
 
@@ -41,6 +43,7 @@ public class UIManager : MonoBehaviour
         sliderExp.value = Mathf.MoveTowards(sliderExp.value, ExpManager.Instance.currentXP, Time.deltaTime * 5);
         sliderHealth.value = Mathf.MoveTowards(sliderHealth.value, currentH, Time.deltaTime * 5);
         sliderHealth.transform.position = new Vector3(0, -10, 0) + GameObject.Find("Planet").transform.position;
+        textKills.text = GameManager.instance.kills.ToString();
     }
 
     public void ShowExp(int xpForLevel)

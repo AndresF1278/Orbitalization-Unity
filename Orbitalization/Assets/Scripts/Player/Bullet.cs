@@ -29,8 +29,10 @@ public class Bullet : MonoBehaviour
            
             int xpEnemy = collision.collider.gameObject.GetComponent<Enemy>().StatEnemy.XP;
             ExpManager.Instance.SetXPValue(xpEnemy);
-            gameObject.SetActive(false);
-            collision.gameObject.SetActive(false);
+            
+            collision.gameObject.GetComponent<Enemy>().Kill();
+            this.gameObject.SetActive(false);
+            GameManager.instance.kills++;
             
         }
 

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [HideInInspector] public bool isPaused;
     private OriginalStatsPlayer originalStats;
+    public int kills;
 
    
     private void Awake()
@@ -48,5 +49,11 @@ public class GameManager : MonoBehaviour
     {
 
         SceneManager.LoadScene("Main");
+    }
+
+    private void OnApplicationQuit()
+    {
+        originalStats = FindObjectOfType<OriginalStatsPlayer>();
+        originalStats.ResetStats();
     }
 }
